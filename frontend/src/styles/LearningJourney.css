@@ -1,17 +1,19 @@
 /* ===========================================
-   Learning Journey Graph Styles
+   Learning Journey graph
    =========================================== */
 
 .learning-journey {
   width: 100%;
-  height: 85vh;
+  /* Fill the viewport between header and footer; never shorter than 480px. */
+  height: calc(100vh - 270px);
+  min-height: 480px;
   background: var(--card-bg);
+  border: 1px solid var(--border-color);
   border-radius: 16px;
   box-shadow: 0 8px 32px var(--shadow-color);
   overflow: hidden;
   position: relative;
-  transition: all var(--transition-speed) var(--transition-smooth);
-  animation: scaleIn 0.6s var(--transition-smooth);
+  animation: fadeIn 0.5s var(--transition-smooth);
 }
 
 .learning-journey .react-flow {
@@ -19,11 +21,6 @@
   height: 100%;
 }
 
-.learning-journey:hover {
-  box-shadow: 0 12px 48px var(--shadow-hover);
-}
-
-/* Loading state */
 .learning-journey .loading-container {
   display: flex;
   justify-content: center;
@@ -34,81 +31,43 @@
 }
 
 /* ===========================================
-   Graph Legend - Fixed and Aligned
+   Legend
    =========================================== */
 
 .graph-legend {
   position: absolute;
-  bottom: 20px;
-  left: 20px;
-  right: 20px;
-  max-width: 500px;
-  margin: 0 auto;
+  top: 12px;
+  left: 12px;
+  max-width: calc(100% - 80px);
   background: var(--card-bg);
-  border-radius: 12px;
-  padding: 12px 20px;
+  border-radius: 999px;
+  padding: 8px 14px;
   box-shadow: 0 4px 20px var(--shadow-color);
   border: 1px solid var(--border-color);
-  
-  /* Flexbox for horizontal layout */
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  gap: 16px;
-  
-  /* Animation */
-  animation: slideUp 0.5s var(--transition-smooth);
+  gap: 8px 14px;
   z-index: 10;
-  
-  /* Backdrop blur for glass effect */
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-}
-
-@keyframes slideUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
 }
 
 .legend-item {
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 6px 12px;
+  padding: 4px 10px;
   border-radius: 20px;
   background: var(--bg-color);
   border: 1px solid var(--border-color);
-  transition: all var(--transition-speed) var(--transition-smooth);
-  cursor: default;
   user-select: none;
 }
 
-.legend-item:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px var(--shadow-color);
-}
-
 .legend-color {
-  /* Consistent circle size */
   width: 12px;
   height: 12px;
-  min-width: 12px;
-  min-height: 12px;
-  
-  /* Perfect circle */
   border-radius: 50%;
-  
-  /* Subtle border for definition */
   box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);
-  
-  /* Flexbox centering */
   flex-shrink: 0;
 }
 
@@ -120,109 +79,54 @@
   line-height: 1;
 }
 
-/* Responsive adjustments */
-@media (max-width: 600px) {
-  .graph-legend {
-    left: 10px;
-    right: 10px;
-    padding: 10px 14px;
-    gap: 10px;
-    bottom: 10px;
-  }
-  
-  .legend-item {
-    padding: 5px 10px;
-    gap: 6px;
-  }
-  
-  .legend-color {
-    width: 10px;
-    height: 10px;
-    min-width: 10px;
-    min-height: 10px;
-  }
-  
-  .legend-label {
-    font-size: 0.75rem;
-  }
-}
-
-@media (max-width: 400px) {
-  .graph-legend {
-    flex-direction: column;
-    gap: 6px;
-  }
-  
-  .legend-item {
-    width: 100%;
-    justify-content: center;
-  }
-}
-
 /* ===========================================
-   ReactFlow Node Styles
+   Nodes
+   React Flow positions nodes with an inline `transform`, so nothing here may
+   set or animate `transform` on .react-flow__node - doing so collapses every
+   node onto the origin.
    =========================================== */
 
-.react-flow__node.animated-node {
-  animation: fadeIn 0.4s ease-out forwards;
+.react-flow__node.module-node {
+  transition: box-shadow 0.2s ease, border-color 0.2s ease;
 }
 
-.react-flow__node.animated-node:hover {
-  transform: translateY(-4px) !important;
-  box-shadow: 0 12px 28px var(--shadow-hover) !important;
+.react-flow__node.module-node:hover {
+  box-shadow: 0 10px 28px var(--shadow-hover) !important;
   z-index: 10 !important;
 }
 
-.react-flow__node.animated-node:active {
-  transform: translateY(-2px) !important;
-  transition: transform 0.1s ease;
+.react-flow__node.module-node .react-flow__handle {
+  opacity: 0;
+  pointer-events: none;
 }
 
-/* Module node content */
 .module-node-content {
   text-align: center;
-  padding: 4px;
+  padding: 2px;
 }
 
 .module-node-content h3 {
-  margin: 0 0 6px 0;
-  font-size: 0.95rem;
+  margin: 0;
+  font-size: 0.9rem;
   font-weight: 600;
   color: var(--text-color);
   line-height: 1.3;
-  transition: color 0.2s ease;
-}
-
-.module-node-content p {
-  margin: 0;
-  font-size: 0.8rem;
-  color: var(--secondary-color);
-  line-height: 1.4;
-  transition: color 0.2s ease;
-  
-  /* Truncate long descriptions */
   display: -webkit-box;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
 
-/* Hover effects for node content */
-.react-flow__node.animated-node:hover .module-node-content h3 {
+.react-flow__node.module-node:hover .module-node-content h3 {
   color: var(--primary-color);
 }
 
-.react-flow__node.animated-node:hover .module-node-content p {
-  color: var(--text-color);
-}
-
 /* ===========================================
-   ReactFlow Edge Styles
+   Edges
    =========================================== */
 
 .react-flow__edge-path {
-  stroke-width: 2;
-  transition: stroke-width 0.2s ease, stroke 0.2s ease;
+  transition: stroke-width 0.2s ease;
 }
 
 .react-flow__edge:hover .react-flow__edge-path {
@@ -235,13 +139,11 @@
 }
 
 @keyframes flowDash {
-  to {
-    stroke-dashoffset: -10;
-  }
+  to { stroke-dashoffset: -10; }
 }
 
 /* ===========================================
-   ReactFlow Controls
+   Controls / background
    =========================================== */
 
 .react-flow__controls {
@@ -263,7 +165,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.2s ease;
+  transition: background 0.2s ease, color 0.2s ease;
 }
 
 .react-flow__controls button:last-child {
@@ -279,47 +181,91 @@
   fill: currentColor;
 }
 
-/* ===========================================
-   ReactFlow Background
-   =========================================== */
-
 .react-flow__background {
   background: var(--bg-color);
 }
 
 /* ===========================================
-   Dark Mode Overrides
+   Narrow-screen list view
    =========================================== */
 
-body.dark-mode .react-flow__node.animated-node {
-  background: var(--card-bg) !important;
+.learning-journey--list {
+  height: auto;
+  min-height: 0;
+  overflow: visible;
+  padding: 1.25rem 1rem;
 }
 
-body.dark-mode .module-node-content h3 {
-  color: #f0f0f0;
+.journey-intro {
+  margin: 0 0 1rem;
+  color: var(--secondary-color);
+  font-size: 0.95rem;
 }
 
-body.dark-mode .module-node-content p {
-  color: #aaa;
+.module-list-level + .module-list-level {
+  margin-top: 1.5rem;
 }
 
-body.dark-mode .react-flow__node.animated-node:hover .module-node-content h3 {
-  color: var(--accent-light);
+.module-list-heading {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--secondary-color);
+  margin: 0 0 0.6rem;
 }
 
-body.dark-mode .react-flow__node.animated-node:hover .module-node-content p {
-  color: #ddd;
+.module-card {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  background: var(--bg-color);
+  border: 1px solid var(--border-color);
+  border-left: 4px solid var(--primary-color);
+  border-radius: 10px;
+  padding: 0.8rem 1rem;
+  margin-bottom: 0.6rem;
+  transition: box-shadow 0.2s ease, border-color 0.2s ease;
 }
 
-body.dark-mode .react-flow__controls {
-  background: var(--card-bg);
-  border-color: var(--border-color);
+.module-card:hover,
+.module-card:focus-visible {
+  box-shadow: 0 6px 18px var(--shadow-color);
+  outline: none;
 }
 
+.module-card-category {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.module-card h3 {
+  margin: 0.15rem 0 0.25rem;
+  font-size: 1rem;
+}
+
+.module-card p {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--secondary-color);
+  line-height: 1.45;
+}
+
+.module-card-prereqs {
+  margin-top: 0.35rem !important;
+  font-size: 0.78rem !important;
+}
+
+/* ===========================================
+   Dark mode
+   =========================================== */
+
+body.dark-mode .react-flow__controls,
 body.dark-mode .react-flow__controls button {
   background: var(--card-bg);
   border-color: var(--border-color);
-  color: #f0f0f0;
+  color: var(--text-color);
 }
 
 body.dark-mode .react-flow__controls button:hover {
@@ -328,11 +274,6 @@ body.dark-mode .react-flow__controls button:hover {
 
 body.dark-mode .graph-legend {
   background: rgba(22, 27, 34, 0.95);
-}
-
-body.dark-mode .legend-item {
-  background: var(--bg-color);
-  border-color: var(--border-color);
 }
 
 body.dark-mode .legend-color {

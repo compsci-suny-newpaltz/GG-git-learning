@@ -164,15 +164,13 @@ body {
   position: sticky;
   top: 0;
   z-index: 1000;
-  backdrop-filter: blur(10px);
-  animation: slideInRight 0.5s var(--transition-smooth);
 }
 
 .header-content {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  max-width: 1400px;
+  max-width: 1600px;
   margin: 0 auto;
   width: 100%;
 }
@@ -184,23 +182,16 @@ body {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  animation: slideInRight 0.6s var(--transition-smooth);
   cursor: pointer;
-  transition: transform var(--transition-speed) var(--transition-smooth);
-}
-
-.App-header h1:hover {
-  transform: scale(1.05);
 }
 
 /* Main Content Styles */
 main {
   flex: 1;
   padding: 2rem;
-  max-width: 1400px;
+  max-width: 1600px;
   margin: 0 auto;
   width: 100%;
-  animation: fadeIn 0.8s var(--transition-smooth);
 }
 
 /* Footer Styles */
@@ -211,7 +202,6 @@ footer {
   padding: 1.5rem;
   margin-top: auto;
   box-shadow: 0 -4px 20px var(--shadow-color);
-  animation: slideInLeft 0.5s var(--transition-smooth);
 }
 
 footer p {
@@ -278,36 +268,17 @@ footer p {
   transform: rotate(180deg) scale(0.95);
 }
 
-/* Learning Journey Graph */
-.learning-journey {
-  width: 100%;
-  height: 85vh;
-  background: var(--card-bg);
-  border-radius: 16px;
-  box-shadow: 0 8px 32px var(--shadow-color);
-  overflow: hidden;
-  position: relative;
-  transition: all var(--transition-speed) var(--transition-smooth);
-  animation: scaleIn 0.6s var(--transition-smooth);
-}
-
-.learning-journey .react-flow {
-  width: 100%;
-  height: 100%;
-}
-
-.learning-journey:hover {
-  box-shadow: 0 12px 48px var(--shadow-hover);
-}
-
-
 /* Module Content with Smooth Transitions */
 .module-content {
   display: flex;
   flex-direction: column;
   min-height: 80vh;
-  padding-bottom: 120px;
-  animation: fadeIn 0.6s var(--transition-smooth);
+  padding-bottom: 2rem;
+  animation: fadeIn 0.4s var(--transition-smooth);
+}
+
+.module-content > .btn {
+  align-self: flex-start;
 }
 
 .module-header {
@@ -317,7 +288,13 @@ footer p {
   margin-bottom: 2rem;
   padding-bottom: 1.5rem;
   border-bottom: 2px solid var(--border-color);
-  animation: slideInRight 0.6s var(--transition-smooth);
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.module-header h2 {
+  font-size: 1.6rem;
+  line-height: 1.3;
 }
 
 .module-description {
@@ -336,13 +313,11 @@ footer p {
   background: var(--card-bg);
   color: var(--text-color);
   transition: all var(--transition-speed) var(--transition-smooth);
-  animation: scaleIn 0.6s var(--transition-smooth);
 }
 
 .visualization:hover {
   border-color: var(--primary-color);
   box-shadow: 0 8px 32px var(--shadow-hover);
-  transform: translateY(-4px);
 }
 
 .visualization-title {
@@ -372,7 +347,6 @@ footer p {
   position: relative;
   z-index: 10;
   box-shadow: 0 -4px 20px var(--shadow-color);
-  animation: slideInLeft 0.6s var(--transition-smooth);
 }
 
 .timeline-label {
@@ -492,12 +466,11 @@ footer p {
   padding: 1.5rem;
   height: 240px;
   overflow-y: auto;
-  border-radius: 12px;
-  margin-bottom: 1rem;
+  border-radius: 12px 12px 0 0;
+  margin-bottom: 0;
   box-shadow: 0 4px 20px var(--shadow-color);
   border: 1px solid var(--border-color);
   transition: all var(--transition-speed) var(--transition-smooth);
-  animation: scaleIn 0.6s var(--transition-smooth);
 }
 
 .terminal:hover {
@@ -511,6 +484,8 @@ footer p {
   padding: 0.75rem 1.5rem;
   border-top: 1px solid var(--border-color);
   border-radius: 0 0 12px 12px;
+  border: 1px solid var(--border-color);
+  border-top: none;
 }
 
 .terminal-prompt {
@@ -548,7 +523,6 @@ footer p {
   color: var(--text-color);
   box-shadow: 0 4px 20px var(--shadow-color);
   transition: all var(--transition-speed) var(--transition-smooth);
-  animation: slideInRight 0.6s var(--transition-smooth);
 }
 
 .file-structure:hover {
@@ -565,7 +539,6 @@ footer p {
   box-shadow: 0 4px 20px var(--shadow-color);
   border: 1px solid var(--border-color);
   transition: all var(--transition-speed) var(--transition-smooth);
-  animation: slideInLeft 0.6s var(--transition-smooth);
 }
 
 .guidance-interface:hover {
@@ -646,61 +619,6 @@ footer p {
   animation: fadeIn 0.4s ease-out;
 }
 
-/* Module Node Styles with Animations */
-.module-node {
-  background: var(--card-bg);
-  border: 3px solid var(--primary-color);
-  border-radius: 16px;
-  padding: 1.25rem;
-  width: 200px;
-  height: 110px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  transition: all var(--transition-speed) var(--transition-bounce);
-  position: absolute;
-  box-shadow: 0 4px 16px var(--shadow-color);
-  color: var(--text-color);
-  overflow: hidden;
-}
-
-.module-node::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-  transition: left 0.6s;
-}
-
-.module-node:hover::before {
-  left: 100%;
-}
-
-.module-node:hover {
-  transform: translateY(-8px) scale(1.05);
-  box-shadow: 0 12px 32px var(--shadow-hover);
-  animation: float 2s ease-in-out infinite;
-}
-
-.module-node h3 {
-  font-size: 1.05rem;
-  text-align: center;
-  margin-bottom: 0.5rem;
-  font-weight: 700;
-}
-
-.module-node p {
-  font-size: 0.85rem;
-  text-align: center;
-  color: var(--secondary-color);
-  line-height: 1.4;
-}
-
 /* Enhanced Buttons */
 .next-step-button,
 .btn {
@@ -749,32 +667,23 @@ footer p {
   transform: translateY(0) scale(0.98);
 }
 
-/* Debug Toggle */
+/* Debug Toggle (developer aid, kept out of the way) */
 .debug-toggle {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  padding: 0.75rem 1rem;
-  margin-bottom: 1rem;
-  font-size: 0.9rem;
-  color: var(--text-color);
-  background: var(--card-bg);
-  border-radius: 8px;
-  border: 1px solid var(--border-color);
-  cursor: pointer;
-  transition: all var(--transition-speed) var(--transition-smooth);
+  font-size: 0.8rem;
+  color: var(--secondary-color);
   user-select: none;
 }
 
-.debug-toggle:hover {
-  border-color: var(--primary-color);
-  background: rgba(102, 126, 234, 0.05);
-  transform: translateX(4px);
+.debug-toggle label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  cursor: pointer;
 }
 
 .debug-toggle input[type="checkbox"] {
-  width: 20px;
-  height: 20px;
+  width: 15px;
+  height: 15px;
   cursor: pointer;
   accent-color: var(--primary-color);
 }
@@ -822,126 +731,6 @@ footer p {
   background: linear-gradient(180deg, var(--accent-color), var(--primary-color));
 }
 
-/* ReactFlow Enhanced Animations */
-.react-flow__node.animated-node {
-  animation: fadeIn 0.6s ease-out forwards;
-}
-
-.react-flow__node.animated-node:hover {
-  transform: scale(1.05) translateY(-4px);
-  box-shadow: 0 8px 24px rgba(102, 126, 234, 0.3) !important;
-  z-index: 10;
-}
-
-.react-flow__node.animated-node:active {
-  transform: scale(0.98);
-  transition: transform 0.1s ease;
-}
-
-.react-flow__edge-path {
-  stroke-width: 2;
-  transition: stroke-width 0.3s ease, stroke 0.3s ease;
-}
-
-.react-flow__edge:hover .react-flow__edge-path {
-  stroke-width: 3;
-  stroke: var(--accent-color);
-}
-
-.react-flow__edge.animated {
-  animation: pulse 2s ease-in-out infinite;
-}
-
-.react-flow__controls {
-  background: var(--card-bg);
-  border: 1px solid var(--border-color);
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  transition: var(--transition-smooth);
-}
-
-.react-flow__controls button {
-  background: var(--card-bg);
-  border: none;
-  border-bottom: 1px solid var(--border-color);
-  color: var(--text-color);
-  transition: var(--transition-smooth);
-}
-
-.react-flow__controls button:hover {
-  background: var(--primary-color);
-  color: white;
-}
-
-.react-flow__background {
-  background: var(--bg-color);
-}
-
-
-/* Module Node Content Enhancements */
-.module-node-content h3 {
-  margin: 0 0 8px 0;
-  font-size: 1rem;
-  font-weight: 600;
-  color: #1a1a1a;
-  transition: color 0.3s ease;
-}
-
-.module-node-content p {
-  margin: 0;
-  font-size: 0.85rem;
-  color: #666;
-  line-height: 1.4;
-  transition: color 0.3s ease;
-}
-
-.react-flow__node.animated-node:hover .module-node-content h3 {
-  color: var(--primary-color);
-}
-
-.react-flow__node.animated-node:hover .module-node-content p {
-  color: #333;
-}
-
-/* Dark mode ReactFlow adjustments */
-body.dark-mode .react-flow__node.animated-node {
-  background: var(--card-bg) !important;
-}
-
-body.dark-mode .module-node-content h3 {
-  color: #f0f0f0;
-}
-
-body.dark-mode .module-node-content p {
-  color: #aaa;
-}
-
-body.dark-mode .react-flow__node.animated-node:hover .module-node-content h3 {
-  color: var(--accent-light);
-}
-
-body.dark-mode .react-flow__node.animated-node:hover .module-node-content p {
-  color: #ddd;
-}
-
-body.dark-mode .react-flow__controls {
-  background: #2d2d2d;
-  border-color: #444;
-}
-
-body.dark-mode .react-flow__controls button {
-  background: #2d2d2d;
-  border-color: #444;
-  color: #f0f0f0;
-}
-
-body.dark-mode .react-flow__controls button:hover {
-  background: var(--accent-color);
-}
-
-/* Learning Journey Container - removed duplicate, using earlier definition */
-
 /* Smooth Page Transitions */
 .fade-enter {
   opacity: 0;
@@ -963,4 +752,279 @@ body.dark-mode .react-flow__controls button:hover {
   opacity: 0;
   transform: translateY(-20px);
   transition: opacity 0.3s ease-in, transform 0.3s var(--transition-smooth);
+}
+
+/* ===========================================
+   Module page: step content
+   =========================================== */
+.instructions-tab h3,
+.behind-command-tab h3,
+.file-view-tab h3 {
+  font-size: 1.25rem;
+  margin-bottom: 0.75rem;
+}
+
+.step-content,
+.behind-command-content {
+  line-height: 1.7;
+}
+
+.step-content p,
+.behind-command-content p {
+  margin: 0 0 0.9rem;
+}
+
+.step-content ul,
+.step-content ol,
+.behind-command-content ul,
+.behind-command-content ol {
+  margin: 0 0 0.9rem 1.4rem;
+}
+
+.step-content h1,
+.step-content h2,
+.step-content h3,
+.step-content h4,
+.behind-command-content h1,
+.behind-command-content h2,
+.behind-command-content h3,
+.behind-command-content h4 {
+  margin: 1.25rem 0 0.5rem;
+  line-height: 1.3;
+}
+
+.step-content code,
+.behind-command-content code,
+.command-item code {
+  font-family: 'Fira Code', 'Courier New', Courier, monospace;
+  font-size: 0.9em;
+  background: rgba(102, 126, 234, 0.1);
+  border-radius: 6px;
+  padding: 0.1em 0.4em;
+}
+
+.step-content pre,
+.behind-command-content pre,
+.file-content {
+  background: var(--terminal-bg);
+  color: var(--terminal-text);
+  border-radius: 10px;
+  padding: 1rem 1.25rem;
+  overflow-x: auto;
+  margin: 0 0 1rem;
+  font-family: 'Fira Code', 'Courier New', Courier, monospace;
+  font-size: 0.88rem;
+  line-height: 1.5;
+}
+
+.step-content pre code,
+.behind-command-content pre code {
+  background: none;
+  padding: 0;
+  font-size: inherit;
+}
+
+.commands-section {
+  margin-top: 1.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--border-color);
+}
+
+.commands-section h4 {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--secondary-color);
+  margin-bottom: 0.75rem;
+}
+
+.command-list {
+  list-style: none;
+  display: grid;
+  gap: 0.6rem;
+}
+
+.command-item {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0.25rem;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  background: var(--bg-color);
+}
+
+.command-item code {
+  display: inline-block;
+  width: fit-content;
+  max-width: 100%;
+  font-size: 0.95rem;
+  padding: 0.3em 0.6em;
+  background: var(--terminal-bg);
+  color: var(--terminal-text);
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.command-item p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--secondary-color);
+}
+
+.next-step-container {
+  margin-top: 0.5rem;
+}
+
+/* File view tab */
+.file-change {
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  padding: 0.9rem 1rem;
+  margin-bottom: 0.8rem;
+  background: var(--bg-color);
+}
+
+.file-change-header {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 0.35rem;
+  flex-wrap: wrap;
+}
+
+.change-type {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+  color: #fff;
+  background: var(--secondary-color);
+}
+
+.change-type.create { background: var(--success-color); }
+.change-type.modify { background: var(--warning-color); }
+.change-type.delete { background: var(--danger-color); }
+
+.file-path {
+  font-family: 'Fira Code', 'Courier New', Courier, monospace;
+  font-size: 0.9rem;
+}
+
+.file-change-description {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--secondary-color);
+}
+
+.file-diff {
+  margin-top: 0.6rem;
+}
+
+/* File structure panel */
+.file-structure h3 {
+  font-size: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.file-tree {
+  font-size: 0.9rem;
+}
+
+.file-item .file-name {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.2rem 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.file-children {
+  margin-left: 1rem;
+  padding-left: 0.6rem;
+  border-left: 1px dashed var(--border-color);
+}
+
+/* Terminal lines */
+.terminal-container {
+  margin-top: 0.5rem;
+}
+
+.terminal-hint {
+  color: var(--secondary-color);
+  font-size: 0.9rem;
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+}
+
+.terminal-line + .terminal-line {
+  margin-top: 0.5rem;
+}
+
+.terminal-command-line {
+  display: flex;
+  gap: 0.6rem;
+}
+
+.terminal-output {
+  margin: 0.25rem 0 0 1.4rem;
+  padding: 0;
+  background: none;
+  color: var(--terminal-text);
+  opacity: 0.85;
+  font-family: inherit;
+  font-size: 0.92rem;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+/* Visualisation box and image fallback */
+.diagram svg {
+  max-width: 100%;
+  height: auto;
+}
+
+.image-visualization img {
+  max-width: 100%;
+  border-radius: 8px;
+}
+
+/* Error / loading inside module page */
+.module-content .error {
+  height: auto;
+  padding: 3rem 1rem;
+}
+
+@media (max-width: 768px) {
+  main {
+    padding: 1rem;
+  }
+
+  .module-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .timeline-bar {
+    height: auto;
+    padding: 0.75rem 1rem;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .timeline-label {
+    margin-right: 0;
+  }
+
+  .timeline-steps {
+    width: 100%;
+  }
+
+  .terminal {
+    height: 200px;
+  }
 }

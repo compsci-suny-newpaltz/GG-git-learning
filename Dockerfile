@@ -1,29 +1,19 @@
-# Use Node.js as the base image
-FROM node:18-alpine
+# ---- stage 1: build the React frontend --------------------------------------
+FROM node:20-alpine AS frontend-build
+WORKDIR /app/frontend
+COPY frontend/package*.json ./
+RUN npm ci --no-audit --no-fund
+COPY frontend/ ./
+RUN npm run build
 
-# Set working directory
+# ---- stage 2: runtime = backend + built assets only -------------------------
+FROM node:20-alpine
+ENV NODE_ENV=production
 WORKDIR /app
-
-RUN npm install -g pm2
-
-# Copy package.json files
-COPY package*.json ./
 COPY backend/package*.json ./backend/
-COPY frontend/package*.json ./frontend/
-
-# Install dependencies
-RUN npm install
-RUN cd backend && npm install
-RUN cd frontend && npm install
-
-# Copy the rest of the application
-COPY . .
-
-# Build the frontend
-RUN cd frontend && npm run build
-
-# Expose the port the app runs on
+RUN cd backend && npm ci --omit=dev --no-audit --no-fund
+COPY backend/ ./backend/
+COPY --from=frontend-build /app/frontend/build ./frontend/build
 EXPOSE 38765
-
-# Command to run the application
-CMD ["pm2-runtime", "backend/server.js"]
+USER node
+CMD ["node", "backend/server.js"]

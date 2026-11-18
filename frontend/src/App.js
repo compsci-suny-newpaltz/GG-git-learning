@@ -64,8 +64,8 @@ function App() {
           </Routes>
         </main>
         <footer>
-          <p>Git Learning Journey - A modular approach to learning Git</p>
-          <p>Created by Nathan Gopee for FOCS</p>
+          <p>Git Learning Journey - a modular approach to learning Git</p>
+          <p>Created by Nathan Gopee for FOCS - SUNY New Paltz Computer Science</p>
         </footer>
       </div>
     </Router>

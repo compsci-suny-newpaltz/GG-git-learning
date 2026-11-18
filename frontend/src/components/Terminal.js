@@ -10,8 +10,6 @@ const Terminal = ({ commandHistory, onCommandSubmit }) => {
     if (terminalRef.current) {
       terminalRef.current.scrollTop = terminalRef.current.scrollHeight;
     }
-    // Debug: Log command history
-    console.log('Command History:', commandHistory);
   }, [commandHistory]);
 
   // Focus input when terminal is clicked
@@ -36,6 +34,11 @@ const Terminal = ({ commandHistory, onCommandSubmit }) => {
   return (
     <div className="terminal-container">
       <div className="terminal" ref={terminalRef} onClick={handleTerminalClick}>
+        {commandHistory.length === 0 && (
+          <div className="terminal-hint">
+            Run the commands listed under <strong>Instructions</strong> here to move to the next step.
+          </div>
+        )}
         {commandHistory.map((item, index) => (
           <div key={index} className="terminal-line">
             <div className="terminal-command-line">
@@ -43,19 +46,7 @@ const Terminal = ({ commandHistory, onCommandSubmit }) => {
               <span className="terminal-command-text">{item.command}</span>
             </div>
             {item.output && (
-              <div className="terminal-output" style={{ 
-                color: '#00ff00', 
-                fontWeight: 'bold',
-                backgroundColor: '#333',
-                padding: '5px',
-                margin: '5px 0',
-                borderRadius: '3px'
-              }}>
-                <div>Output:</div>
-                {item.output.split('\n').map((line, i) => (
-                  <div key={i}>{line || '(empty line)'}</div>
-                ))}
-              </div>
+              <pre className="terminal-output">{item.output}</pre>
             )}
           </div>
         ))}

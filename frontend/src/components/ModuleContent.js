@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import config from '../config';
@@ -151,6 +151,11 @@ const ModuleContent = () => {
     navigate('/');
   };
 
+  useEffect(() => {
+    document.title = module ? `${module.title} - Git Learning Journey` : 'Git Learning Journey';
+    return () => { document.title = 'Git Learning Journey'; };
+  }, [module]);
+
   if (loading) {
     return <div className="loading">Loading module content...</div>;
   }
@@ -185,7 +190,7 @@ const ModuleContent = () => {
               checked={showDebugInfo} 
               onChange={() => setShowDebugInfo(!showDebugInfo)} 
             />
-            Show Visualization Data and Debug Information
+            Show debug info
           </label>
         </div>
       </div>

@@ -53,9 +53,6 @@ app.get('/git/api/modules/:id', (req, res) => {
   }
 });
 
-app.get('/git/manifest.json', (req, res) => {
-  res.sendFile(path.join(__dirname, '../frontend/build/manifest.json'));
-});
 
 // Webhook endpoint for GitHub
 app.post('/git/webhook', (req, res) => {
@@ -108,14 +105,34 @@ app.post('/git/webhook', (req, res) => {
 });
 
 
-// Specific route for /git/static/ files
-app.use('/git', express.static(path.join(__dirname, '../frontend/build')));
+// Liveness/readiness
+app.get('/git/healthz', (req, res) => res.json({ ok: true }));
 
+// Built frontend (hashed assets can be cached forever, index.html must not be)
+const BUILD_DIR = path.join(__dirname, '../frontend/build');
+app.use('/git', express.static(BUILD_DIR, {
+  index: false,
+  setHeaders(res, filePath) {
+    if (filePath.includes(`${path.sep}static${path.sep}`)) {
+      res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
+    } else {
+      res.setHeader('Cache-Control', 'no-cache');
+    }
+  },
+}));
+
+// SPA fallback: client-side routes like /git/module/<id> load the app shell.
+// Anything that looks like a missing file (has an extension) stays a 404.
+app.get(['/git', '/git/*'], (req, res, next) => {
+  if (req.path.startsWith('/git/api/') || path.extname(req.path)) return next();
+  res.setHeader('Cache-Control', 'no-cache');
+  res.sendFile(path.join(BUILD_DIR, 'index.html'));
+});
 
 
 // Start server
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
-  console.log(`API available at http://localhost:${PORT}/api`);
-  console.log(`Frontend available at http://localhost:${PORT}`);
+  console.log(`API available at http://localhost:${PORT}/git/api`);
+  console.log(`Frontend available at http://localhost:${PORT}/git/`);
 });
